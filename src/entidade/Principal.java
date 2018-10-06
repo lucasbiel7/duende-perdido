@@ -5,7 +5,6 @@
  */
 package entidade;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -16,7 +15,7 @@ public class Principal {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        
+
         int m;
         do {
             m = scanner.nextInt();
@@ -28,20 +27,15 @@ public class Principal {
         Campo campo = new Campo(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                campo.setCampo(i,j, scanner.nextInt());
+                campo.setCampo(i, j, scanner.nextInt());
             }
         }
         campo.imprimir();
         campo.carregarCaminhos();
-        if(campo.getCaminhos().isEmpty()) {
-        	System.out.println("Não foi encontrado caminhos");
-        }
-        for (List<Salao> caminho : campo.getCaminhos()) {
-        	campo.imprimir();
-        	System.out.println("-----Caminho ");
-            for (Salao salao : caminho) {
-                System.out.println(salao);
-            }
+        if (campo.getCaminhos().isEmpty()) {
+            System.out.println("NÃ£o foi encontrado caminhos");
+        } else {
+            System.out.println(campo.menorCaminho());
         }
     }
 }

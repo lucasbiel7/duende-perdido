@@ -10,6 +10,7 @@ package entidade;
  * @author 11724814
  */
 public class Salao {
+
     int x;
     int y;
 
@@ -36,8 +37,8 @@ public class Salao {
 
     @Override
     public String toString() {
-        return "(" + x + ", "+ y + ")";
-    }    
+        return "(" + (x + 1) + ", " + (y + 1) + ")";
+    }
 
     @Override
     public int hashCode() {
@@ -67,5 +68,5 @@ public class Salao {
         }
         return true;
     }
-    
+
 }

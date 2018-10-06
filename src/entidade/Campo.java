@@ -46,43 +46,38 @@ public class Campo {
     }
 
     private void procurarCaminho(List<Salao> caminho) {
-        while (true) {
-            Salao atual = caminho.get(caminho.size() - 1);
-            List<Salao> vizinhos = vizinhosPossiveis(atual);
-            boolean adicionado = false;
-            for (Salao vizinho : vizinhos) {
-                if (!caminho.contains(vizinho) && !adicionado) {
-                    caminho.add(vizinho);
-                    adicionado=true;
-                }else if (adicionado) {
-                    List<Salao> novoCaminho = new ArrayList<>(caminho.subList(0, caminho.size()-1));
-//                    		caminho.stream().filter(t -> !t.equals(caminho.get(caminho.size()-1))).collect(Collectors.toList());
-                    if(!novoCaminho.contains(vizinho)) {
-                    	novoCaminho.add(vizinho);
-                    	Salao ultimo = novoCaminho.get(novoCaminho.size() - 1);
-                    	if (saida(ultimo)) {
-                        	caminhos.add(novoCaminho);
-                    	}else {
-                    		procurarCaminho(novoCaminho);
-                    	}
+        Salao atual = caminho.get(caminho.size() - 1);
+        List<Salao> vizinhos = vizinhosPossiveis(atual);
+        boolean adicionado = false;
+        List<Salao> caminhoAtual = caminho.stream().collect(Collectors.toList());
+        for (Salao vizinho : vizinhos) {
+            if (!caminho.contains(vizinho) && !adicionado) {
+                caminho.add(vizinho);
+                Salao ultimo = caminho.get(caminho.size() - 1);
+                if (saida(ultimo)) {
+                    caminhos.add(caminho);
+                } else {
+                    procurarCaminho(caminho);
+                }
+                adicionado = true;
+            } else if (adicionado) {
+                List<Salao> novoCaminho = caminhoAtual.stream().collect(Collectors.toList());
+                if (!novoCaminho.contains(vizinho)) {
+                    novoCaminho.add(vizinho);
+                    Salao ultimo = novoCaminho.get(novoCaminho.size() - 1);
+                    if (saida(ultimo)) {
+                        caminhos.add(novoCaminho);
+                    } else {
+                        procurarCaminho(novoCaminho);
                     }
                 }
             }
-            Salao ultimo = caminho.get(caminho.size() - 1);
-            if (saida(ultimo)) {
-            	caminhos.add(caminho);
-                break;
-            }
-            if (vizinhos.stream().filter(t -> !caminho.contains(t)).count() <= 0) {
-                break;
-            }
         }
     }
-    
+
     public boolean saida(Salao salao) {
-    	return campo[salao.getX()][salao.getY()] == 0;
+        return campo[salao.getX()][salao.getY()] == 0;
     }
-    
 
     public Salao inicio() {
         for (int i = 0; i < campo.length; i++) {
@@ -135,13 +130,22 @@ public class Campo {
 
     }
 
-	public void imprimir() {
-		for (int i = 0; i < campo.length; i++) {
-			for (int j = 0; j < campo[i].length; j++) {
-				System.out.printf("%d ",campo[i][j]);
-			}
-			System.out.println();
-		}
-	}
+    public void imprimir() {
+        for (int i = 0; i < campo.length; i++) {
+            for (int j = 0; j < campo[i].length; j++) {
+                System.out.printf("%d ", campo[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    private void ordernarCaminhos() {
+        caminhos.sort((c1, c2) -> Integer.compare(c1.size(), c2.size()));
+    }
+
+    int menorCaminho() {
+        ordernarCaminhos();
+        return caminhos.stream().map(List::size).mapToInt(t -> t - 1).min().orElse(-1);
+    }
 
 }
