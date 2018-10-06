@@ -53,8 +53,7 @@ public class Campo {
         for (Salao vizinho : vizinhos) {
             if (!caminho.contains(vizinho) && !adicionado) {
                 caminho.add(vizinho);
-                Salao ultimo = caminho.get(caminho.size() - 1);
-                if (saida(ultimo)) {
+                if (saida(vizinho)) {
                     caminhos.add(caminho);
                 } else {
                     procurarCaminho(caminho);
@@ -64,8 +63,7 @@ public class Campo {
                 List<Salao> novoCaminho = caminhoAtual.stream().collect(Collectors.toList());
                 if (!novoCaminho.contains(vizinho)) {
                     novoCaminho.add(vizinho);
-                    Salao ultimo = novoCaminho.get(novoCaminho.size() - 1);
-                    if (saida(ultimo)) {
+                    if (saida(vizinho)) {
                         caminhos.add(novoCaminho);
                     } else {
                         procurarCaminho(novoCaminho);

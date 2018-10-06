@@ -18,16 +18,23 @@ public class Principal {
 
         int m;
         do {
+            System.out.println("Digite quantidade de linhas");
             m = scanner.nextInt();
-        } while (m < 0 || m > 10);
+        } while (m <= 0 || m > 10);
         int n;
         do {
+            System.out.println("Digite quantidade de colunnas");
             n = scanner.nextInt();
-        } while (n < 0 || n > 10);
+        } while (n <= 0 || n > 10);
         Campo campo = new Campo(m, n);
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                campo.setCampo(i, j, scanner.nextInt());
+                int value;
+                do {
+                    System.out.println("Digite valor do elemento no par ordenado (" + (i + 1) + "," + (j + 1) + ")");
+                    value = scanner.nextInt();
+                } while (value < 0 || value > 3);
+                campo.setCampo(i, j, value);
             }
         }
         campo.imprimir();
