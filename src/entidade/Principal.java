@@ -23,7 +23,7 @@ public class Principal {
         } while (m <= 0 || m > 10);
         int n;
         do {
-            System.out.println("Digite quantidade de colunnas");
+            System.out.println("Digite quantidade de colunas");
             n = scanner.nextInt();
         } while (n <= 0 || n > 10);
         Campo campo = new Campo(m, n);
