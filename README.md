@@ -1,7 +1,7 @@
 # Duende perdido
 AEDES, projeto para encontrar a menor rota
 ```
-Criação de algoritmo para encontrar todas as rotas possíveis e as dessas
+Criação de algoritmo para encontrar todas as rotas possíveis e dessas
 ordenar e mostrar a menor rotada encontrada para o usuário
 ```
 O algoritmo inicia pedindo as dimensões da matriz linha, coluna
